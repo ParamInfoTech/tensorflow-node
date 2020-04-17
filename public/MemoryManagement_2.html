@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./../node_modules/@tensorflow/tfjs/dist/tf.min.js"> </script>
+</head>
+<body>
+    <script>
+        function f1() {
+            for(let i = 0; i < 10; i++){
+                let a = tf.tensor([1,2,3,4]);
+                let b = tf.tensor([5,6,7,8]);
+                let c = tf.add(a, b);
+                document.write(c);
+                document.write("<br>");
+            }
+            document.write("Numbers of Tensors before exiting function f1 : ")
+            document.write(tf.memory().numTensors + "<br>");
+        }
+        f1();
+        document.write("Numbers of Tensors after exiting function f1 : ")
+        document.write(tf.memory().numTensors + "<br> <br> <br>");
+
+        function f2() {
+            for(let i = 0; i < 10; i++){
+                let d = tf.tensor([1,2,3,4]);
+                let e = tf.tensor([5,6,7,8]);
+                let f = tf.add(d, e);
+                document.write(f);
+                document.write("<br>");
+            }
+            document.write("Numbers of Tensors before exiting function f2 : ")
+            document.write(tf.memory().numTensors + "<br>");
+        }
+        tf.tidy(f2);
+        document.write("Numbers of Tensors after exiting function f2 : ")
+        document.write(tf.memory().numTensors);
+    </script>
+</body>
+</html>

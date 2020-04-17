@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./../node_modules/@tensorflow/tfjs/dist/tf.min.js"> </script>
+</head>
+<body>
+    <script>
+        document.write(tf.memory().numTensors);
+        document.write("<br>")
+
+        let a = tf.tensor([1,2,3,4]);
+        let b = tf.tensor([5,6,7,8]);
+        let c = tf.add(a, b);
+
+        document.write("Number of tensors in Memory : " + tf.memory().numTensors);
+        document.write("<br>")
+        tf.dispose(a);
+        document.write("Number of tensors in Memory : " + tf.memory().numTensors);
+        document.write("<br>")
+        tf.dispose(b);
+        document.write("Number of tensors in Memory : " + tf.memory().numTensors);
+        document.write("<br>")
+
+        // We need to pass every tensor explicitly to tf.dispose() function
+        // This is not convenient, when we are dealing with many tensors
+        // as we need to dispose every tensor explicitly
+
+        //Solution id tf.tidy() function
+        // this function disposes every tensor created within it,
+        // except which is returned by function
+
+        let result = tf.tidy(() => {
+            let a = tf.tensor([1,2,3,4]);
+            let b = tf.tensor([5,6,7,8]);
+
+            let c = tf.add(a, b);
+
+            document.write("Number of tensors in Memory : " + tf.memory().numTensors);
+            document.write("<br>")
+            document.write("Number of Bytes in Memory   : " + tf.memory().numBytes);
+            document.write("<br>")
+
+            return c;
+        });
+
+        document.write("Number of tensors in Memory : " + tf.memory().numTensors);
+        document.write("<br>")
+
+        tf.dispose(c);
+        tf.dispose(result);
+        document.write("Number of tensors in Memory : " + tf.memory().numTensors);
+        document.write("<br>")
+
+    </script>
+</body>
+</html>
