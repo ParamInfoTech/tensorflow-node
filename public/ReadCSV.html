@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/node/@tensorflow/tfjs/dist/tf.min.js"> </script>
+</head>
+<body>
+    <script>
+        async function getData(){
+            let data = tf.data.csv("/html/kc_house_data.csv"); // Returns tf.data.CSVDataset object
+            let temp = await data.take(-1).toArray();
+            alert(temp.length);
+            let dataArray = await data.take(10).toArray();
+            return dataArray;
+        }
+
+        async function parseData(){
+            let data = await getData();
+            for(let i = 0; i < data.length; i++){
+                document.write(data[i]["price"] + "\t" + data[i]["bedrooms"] + "<br>");
+            }
+        }
+
+        async function getBatchData(){
+            let data = tf.data.csv("/html/kc_house_data.csv"); // Returns tf.data.CSVDataset object
+            //data = await data.take(-1).toArray();
+            //document.write(data.length + "<br>");
+            let batchData = data.batch(20);
+            let res2 = batchData instanceof tf.data.Dataset;
+            let temp = await batchData.toArray();
+            document.write(temp[0].length  + "<br>");
+            document.write(res2);
+            document.write("<br>");
+
+            let res = data instanceof tf.data.Dataset;
+            document.write(res);
+        }
+
+        //parseData();
+        getBatchData();
+    </script>
+</body>
+</html>
