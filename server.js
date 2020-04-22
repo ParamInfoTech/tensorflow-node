@@ -38,3 +38,12 @@ app.get("/Test2", (req, res) =>{
 app.listen(port, () => {
     console.log("Server listening on PORT number : " + port);
 });
+
+let webDriver = require("selenium-webdriver");
+
+async function getPage(){
+    let driver = await new webDriver.Builder().forBrowser("chrome").build();
+    await driver.get("http://localhost:3000/");
+}
+
+getPage();
