@@ -9,7 +9,7 @@ app.use("/html", express.static("./public"));
 app.use("/node", express.static("./node_modules"));
 
 app.get("/", (req, res) => {
-    let filePath = path.join(__dirname, "public/ReadCSV.html");
+    let filePath = path.join(__dirname, "public/PlotData_1.html");
     //let filePath = path.join("/html/MemoryManagement_2.html");
     res.sendFile(filePath, (err) =>{
         if(err){

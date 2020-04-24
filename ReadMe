@@ -2,3 +2,6 @@ npm install express
 npm install selenium-webdriver
 npm install http-server // Not Required
 npm install @tensorflow/tfjs-vis
+
+Link for Tensorflow Visualization API690
+https://js.tensorflow.org/api_vis/latest/

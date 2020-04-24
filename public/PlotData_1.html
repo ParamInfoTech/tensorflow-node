@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/node/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="/node/@tensorflow/tfjs-vis/dist/tfjs-vis.umd.min.js"></script>
+</head>
+<body>
+
+    <script>
+        async function plotLineGraph(pointsArray, featureName){
+            tfvis.render.scatterplot(
+                { name : '${featureName} vs House Price' },
+                { values : [pointsArray], series: ['original']},
+                {
+                    xLabel: featureName,
+                    yLabel: "Price",
+                }
+            );
+        }
+
+        async function getPoints(){
+            let data = tf.data.csv("/html/kc_house_data.csv");
+            let dataArray = await data.toArray();
+            alert(dataArray.length);
+
+            let points = data.map(record => ({
+                x: record.sqft_living,
+                y: record.price,
+            }));
+
+            let pointsArray = await points.toArray()
+            //console.log(pointsArray);
+            alert(pointsArray.length);
+            plotLineGraph(pointsArray, "Square Feet");
+        }
+
+        getPoints();
+    </script>
+</body>
+</html>

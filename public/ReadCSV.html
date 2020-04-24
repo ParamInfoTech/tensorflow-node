@@ -24,17 +24,12 @@
 
         async function getBatchData(){
             let data = tf.data.csv("/html/kc_house_data.csv"); // Returns tf.data.CSVDataset object
-            //data = await data.take(-1).toArray();
-            //document.write(data.length + "<br>");
-            let batchData = data.batch(20);
+            let batchData = data.batch(2000);
             let res2 = batchData instanceof tf.data.Dataset;
-            let temp = await batchData.toArray();
-            document.write(temp[0].length  + "<br>");
-            document.write(res2);
-            document.write("<br>");
+            batchData.forEachAsync(e => {
+                document.write(e);
+            });
 
-            let res = data instanceof tf.data.Dataset;
-            document.write(res);
         }
 
         //parseData();
